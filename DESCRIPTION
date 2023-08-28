@@ -1,12 +1,13 @@
 Package: adass
-Title: What the Package Does (One Line, Title Case)
+Title: Adaptive subset selection
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors: Haoyu Chen
+Description: For normally distributed populations, a subset of best populations is selected, with "best" being determined by the population with the largest location parameter. Two adaptive methods, Adaptive Selection and Randomised Adaptive Selection are available to reduce the conservativeness of such result.
+License: use_mit_license()
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
+Imports: chi, cubature
+Remotes: dkahle/chi, bnaras/cubature
+

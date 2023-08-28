@@ -4,7 +4,7 @@
 #' @param pop A list. Each list item contains the sample vector of each population. 
 #' @param var_type Factor, can be either "known", for the known variance case, if so specify the variance at parameter "var". "eq_var", for the unknown but equal variance case, and "uneq_var", for the unknown and unequal variance case.
 #' @param var Numeric, value of variance when variance is known. If unknown variance, ignore this parameter.
-#' @param method Factor, can be either "base" for the basic subset selection, "AS" for the Adaptive method, or "RAS" for the randomised Adaptive method.
+#' @param method Factor, can be either "base" for the basic subset selection, AS for the Adaptive method, or RAS for the randomised Adaptive method.
 #' @param lambda Factor, can be either "MSE" which uses the automatic lambda tuning method, or a predetermined number between 0 and 1.
 #' @return A numeric vector of R-values, one for each population in the order of the input data.
 #' @export
@@ -32,14 +32,16 @@ subset_selection = function(pop, var_type, var, method, lambda){
       for (d in statistic){
         R = c(R, 1 - integrate(integrand, -Inf, Inf)$value)
       }
-      if (method == "base"){
-        #basic subset selection
-        return (R)
+      if (is.character(method)){
+        if (method == "base"){
+          #basic subset selection
+          return (R)
+        }
       }else{
         #adaptive method
         if (lambda == "MSE"){
           #lambda tuning
-          lambda = lambda_tuning(R, method, k)
+          lambda = lambda_tuning(R, method, k = k)
         }
         k_h = method(R, lambda)
         integrand_h = function(x){
@@ -47,7 +49,7 @@ subset_selection = function(pop, var_type, var, method, lambda){
         }
         R_h = c()
         for (d in statistic){
-          R_h = c(R_h, 1 - integrate_h(integrand_h, -Inf, Inf)$value)
+          R_h = c(R_h, 1 - integrate(integrand_h, -Inf, Inf)$value)
         }
         return(R_h)
       }
@@ -80,14 +82,16 @@ subset_selection = function(pop, var_type, var, method, lambda){
     for (d in statistic){
       R = c(R, 1-pcubature(integrand, lowerLimit = c(0,-Inf), upperLimit = c(Inf, Inf))$integral)
     }
-    if (method == "base"){
-      #basic subset selection
-      return (R)
+    if (is.character(method)){
+      if (method == "base"){
+        #basic subset selection
+        return (R)
+      }
     }else{
       #adaptive method
       if (lambda == "MSE"){
         #lambda tuning
-        lambda = lambda_tuning(R, method, length(pop))
+        lambda = lambda_tuning(R, method, k = k)
       }
       k_h = method(R, lambda)
       
@@ -103,7 +107,7 @@ subset_selection = function(pop, var_type, var, method, lambda){
       }
       return(R_h)
     }
-  }else if (method == "uneq_var"){
+  }else if (var_type == "uneq_var"){
     #unknown and unequal variance case
     samsize = lengths(pop)
     #equal sample size case
@@ -135,14 +139,16 @@ subset_selection = function(pop, var_type, var, method, lambda){
       
     }
     
-    if (method == "base"){
-      #basic subset selection
-      return (R)
+    if (is.character(method)){
+      if (method == "base"){
+        #basic subset selection
+        return (R)
+      }
     }else{
       #adaptive method
       if (lambda == "MSE"){
         #lambda tuning
-        lambda = lambda_tuning(R, method, length(pop))
+        lambda = lambda_tuning(R, method, k = k)
       }
       k_h = method(R, lambda)
       

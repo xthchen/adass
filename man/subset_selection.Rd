@@ -13,7 +13,7 @@ subset_selection(pop, var_type, var, method, lambda)
 
 \item{var}{Numeric, value of variance when variance is known. If unknown variance, ignore this parameter.}
 
-\item{method}{Factor, can be either "base" for the basic subset selection, "AS" for the Adaptive method, or "RAS" for the randomised Adaptive method.}
+\item{method}{Factor, can be either "base" for the basic subset selection, AS for the Adaptive method, or RAS for the randomised Adaptive method.}
 
 \item{lambda}{Factor, can be either "MSE" which uses the automatic lambda tuning method, or a predetermined number between 0 and 1.}
 }

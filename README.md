@@ -15,6 +15,6 @@ Basic subset selection method without the adaptive approach is available via set
 
 If the user prefer to manually set the tuning parameter lambda, simply give a numeric input to the parameter lambda. We suggest an input of smaller than 0.5 to avoid excess anticonservativeness when the data is close to the least favourable condition.
 
-For further information and examples refer to the manual typing ?subset_selection in R.
+For further information and examples refer to the manual typing ?subset_selection in R, as well as the ./Examples folder.
 
 

@@ -138,3 +138,163 @@ legend(60,0.3,legend = c("No Adaptive", expression(AS~lambda==0.5),
                          expression(RAS~lambda==0.5)),
        lty = c("longdash","dotted","dotdash"), col = colourblind[c(2,4,8)])
 ###############################Figure 4#########################################
+#Figure 4_1, far from LFC case with equal sample size and known and equal variance
+#comparison with lambda automatically tuned when using the RAS approach.
+sim_data = function(seed = seed){
+  set.seed(seed)
+  return(c(rnorm(10,mean = 0),rnorm(90,mean = -2)))
+}
+#1 - PCS for the fix lambda case
+PCS = sim(data = sim_data, var_type = "known", var = 1, method = methods, lambda = 0.5, loc = 1)
+#for the automatic tuning case
+PCS_lambda = sim(data = sim_data, var_type = "known", var = 1, method = methods, lambda = "MSE", loc = 1)
+#plot
+plot(1, type = "n", xlim = c(0,0.5), ylim = c(0,0.5),
+     xlab = expression(level~of~significance(alpha)),
+     ylab = "1 - PCS of best populations")
+lines(seq(0,0.5,0.001), PCS[,1], type = "l", col = colourblind[2], lty = "longdash")
+lines(seq(0,0.5,0.001), PCS[,3], type = "l", col = colourblind[4], lty = "dotted")
+lines(seq(0,0.5,0.001), PCS_lambda[,3], type = "l", col = colourblind[8], lty = "dotdash")
+lines(c(0,0.5), c(0,0.5), type = "l", col = colourblind[1])
+legend(0,0.5,legend = c("No Adaptive", expression(RAS~lambda==0.5),
+                        expression(RAS~lambda:MSE~tuned)),
+       lty = c("longdash","dotted","dotdash"), col = colourblind[c(2,4,8)])
+#Figure 4_2, LFC case with equal sample size and known and equal variance.
+#comparison with lambda automatically tuned when using the RAS approach.
+sim_data = function(seed = seed){
+  set.seed(seed)
+  return(c(rnorm(100,mean = 0),rnorm(0,mean = -2)))
+}
+#1 - PCS for the fixed lambda case
+PCS = sim(data = sim_data, var_type = "known", var = 1, method = methods, lambda = 0.5, loc = 1)
+#for the automatic tuning case
+PCS_lambda = sim(data = sim_data, var_type = "known", var = 1, method = methods, lambda = "MSE", loc = 1)
+#plot
+plot(1, type = "n", xlim = c(0,0.5), ylim = c(0,0.5),
+     xlab = expression(level~of~significance(alpha)),
+     ylab = "1 - PCS of best populations")
+lines(seq(0,0.5,0.001), PCS[,1], type = "l", col = colourblind[2], lty = "longdash")
+lines(seq(0,0.5,0.001), PCS[,3], type = "l", col = colourblind[4], lty = "dotted")
+lines(seq(0,0.5,0.001), PCS_lambda[,3], type = "l", col = colourblind[8], lty = "dotdash")
+lines(c(0,0.5), c(0,0.5), type = "l", col = colourblind[1])
+legend(0,0.5,legend = c("No Adaptive", expression(RAS~lambda==0.5),
+                        expression(RAS~lambda:MSE~tuned)),
+       lty = c("longdash","dotted","dotdash"), col = colourblind[c(2,4,8)])
+###############################Figure 5#########################################
+#Figure 5_1, far from LFC case with unequal sample size randomly chosen between 5 to 10
+#known and equal variance.
+sim_data = function(seed = seed){
+  set.seed(seed)
+  samsize = sample(5:10,100, replace = TRUE)
+  samvar = rep(1,100)
+  #sample size of the 100 populations
+  pop = list()
+  for (j in 1:10){
+    pop = append(pop, list(rnorm(samsize[j], mean = 0, sd = sqrt(samvar[j]))))
+  }
+  #best populations
+  for (j in 11:100){
+    pop = append(pop, list(rnorm(samsize[j], mean = -2, sd = sqrt(samvar[j]))))
+  }
+  #non-best
+  return(pop)
+}
+#1 - PCS for the 3 methods
+PCS = sim(data = sim_data, var_type = "known", var = 1, method = methods, lambda = 0.1, loc = 1)
+#plot
+plot(1, type = "n", xlim = c(0,0.5), ylim = c(0,0.5),
+     xlab = expression(level~of~significance(alpha)),
+     ylab = "1 - PCS of best populations")
+lines(seq(0,0.5,0.001), PCS[,1], type = "l", col = colourblind[2], lty = "longdash")
+lines(seq(0,0.5,0.001), PCS[,2], type = "l", col = colourblind[4], lty = "dotted")
+lines(seq(0,0.5,0.001), PCS[,3], type = "l", col = colourblind[8], lty = "dotdash")
+lines(c(0,0.5), c(0,0.5), type = "l", col = colourblind[1])
+legend(0,0.5,legend = c("No Adaptive", expression(AS~lambda==0.1),
+                        expression(RAS~lambda==0.1)),
+       lty = c("longdash","dotted","dotdash"), col = colourblind[c(2,4,8)])
+#Figure 5_2, LFC case with unequal sample size randomly chosen between 5 to 10.
+#known and equal variance.
+sim_data = function(seed = seed){
+  set.seed(seed)
+  samsize = sample(5:10,100, replace = TRUE)
+  samvar = rep(1,100)
+  #sample size of the 100 populations
+  pop = list()
+  for (j in 1:100){
+    pop = append(pop, list(rnorm(samsize[j], mean = 0, sd = sqrt(samvar[j]))))
+  }
+  #best populations
+  return(pop)
+}
+#1 - PCS for the 3 methods
+PCS = sim(data = sim_data, var_type = "known", var = 1, method = methods, lambda = 0.1, loc = 1)
+#plot
+plot(1, type = "n", xlim = c(0,0.5), ylim = c(0,0.5),
+     xlab = expression(level~of~significance(alpha)),
+     ylab = "1 - PCS of best populations")
+lines(seq(0,0.5,0.001), PCS[,1], type = "l", col = colourblind[2], lty = "longdash")
+lines(seq(0,0.5,0.001), PCS[,2], type = "l", col = colourblind[4], lty = "dotted")
+lines(seq(0,0.5,0.001), PCS[,3], type = "l", col = colourblind[8], lty = "dotdash")
+lines(c(0,0.5), c(0,0.5), type = "l", col = colourblind[1])
+legend(0,0.5,legend = c("No Adaptive", expression(AS~lambda==0.1),
+                        expression(RAS~lambda==0.1)),
+       lty = c("longdash","dotted","dotdash"), col = colourblind[c(2,4,8)])
+###############################Figure 6#########################################
+#Figure 6_1, far from LFC case with unequal sample size randomly chosen between 5 to 10.
+#unknown and unequal variance chosen between 0.5 and 1.5.
+sim_data = function(seed = seed){
+  set.seed(seed)
+  samsize = sample(5:10,100, replace = TRUE)
+  samvar = sample(seq(0.5,1.5,0.1), 100, replace = TRUE)
+  #sample size of the 100 populations
+  pop = list()
+  for (j in 1:10){
+    pop = append(pop, list(rnorm(samsize[j], mean = 0, sd = sqrt(samvar[j]))))
+  }
+  #best populations
+  for (j in 11:100){
+    pop = append(pop, list(rnorm(samsize[j], mean = -2, sd = sqrt(samvar[j]))))
+  }
+  #non-best
+  return(pop)
+}
+#1 - PCS for the 3 methods
+PCS = sim(data = sim_data, var_type = "uneq_var", method = methods, lambda = 0.1, loc = 1)
+#plot
+plot(1, type = "n", xlim = c(0,0.5), ylim = c(0,0.5),
+     xlab = expression(level~of~significance(alpha)),
+     ylab = "1 - PCS of best populations")
+lines(seq(0,0.5,0.001), PCS[,1], type = "l", col = colourblind[2], lty = "longdash")
+lines(seq(0,0.5,0.001), PCS[,2], type = "l", col = colourblind[4], lty = "dotted")
+lines(seq(0,0.5,0.001), PCS[,3], type = "l", col = colourblind[8], lty = "dotdash")
+lines(c(0,0.5), c(0,0.5), type = "l", col = colourblind[1])
+legend(0,0.5,legend = c("No Adaptive", expression(AS~lambda==0.1),
+                        expression(RAS~lambda==0.1)),
+       lty = c("longdash","dotted","dotdash"), col = colourblind[c(2,4,8)])
+#Figure 6_2, LFC case with unequal sample size randomly chosen between 5 to 10.
+#unknown and unequal variance chosen between 0.5 and 1.5.
+sim_data = function(seed = seed){
+  set.seed(seed)
+  samsize = sample(5:10,100, replace = TRUE)
+  samvar = sample(seq(0.5,1.5,0.1), 100, replace = TRUE)
+  #sample size of the 100 populations
+  pop = list()
+  for (j in 1:100){
+    pop = append(pop, list(rnorm(samsize[j], mean = 0, sd = sqrt(samvar[j]))))
+  }
+  #best populations
+  return(pop)
+}
+#1 - PCS for the 3 methods
+PCS = sim(data = sim_data, var_type = "uneq_var", method = methods, lambda = 0.1, loc = 1)
+#plot
+plot(1, type = "n", xlim = c(0,0.5), ylim = c(0,0.5),
+     xlab = expression(level~of~significance(alpha)),
+     ylab = "1 - PCS of best populations")
+lines(seq(0,0.5,0.001), PCS[,1], type = "l", col = colourblind[2], lty = "longdash")
+lines(seq(0,0.5,0.001), PCS[,2], type = "l", col = colourblind[4], lty = "dotted")
+lines(seq(0,0.5,0.001), PCS[,3], type = "l", col = colourblind[8], lty = "dotdash")
+lines(c(0,0.5), c(0,0.5), type = "l", col = colourblind[1])
+legend(0,0.5,legend = c("No Adaptive", expression(AS~lambda==0.1),
+                        expression(RAS~lambda==0.1)),
+       lty = c("longdash","dotted","dotdash"), col = colourblind[c(2,4,8)])

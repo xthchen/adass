@@ -10,6 +10,14 @@ It contains four subfolders containing the following files:
     These Figures represent different scenarios where subset selection and adaptive subset selections are applied. For details of the scenarios, see the comments in the R script.
 
 ./Wheat Variety/:
+    SRP1172.pdf
+    The original pdf file from the University of Kansas that recorded the wheat yield of different wheat variety from various farms.
+
+    Kansas Winter Wheat productivity - 2022.csv
+    A csv file that summarises the yields from different farms and varieties from the SRP1172.pdf file.
+
+    Kansas.R
+    The R script that can be used to reproduce the results of "Table 1.png". The "Table 1.png" is a screenshot taken from a table produced using LaTeX using the results from the R file with preference on having varieties that are best in most methods on top.
 
 ./Evolve & Resequence/:
 

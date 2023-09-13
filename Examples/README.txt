@@ -11,7 +11,7 @@ It contains four subfolders containing the following files:
 
 ./Wheat Variety/:
     SRP1172.pdf
-    The original pdf file from the University of Kansas that recorded the wheat yield of different wheat variety from various farms.
+    The original pdf file from the University of Kansas that recorded the wheat yield of different wheat variety from various farms. Credit: 2022 Kansas Performance Tests with Winter Wheat Varieties, Kansas State University, August 2022. Contribution number 23 - 025-S from the Kansas Agricultural Experiment Station.
 
     Kansas Winter Wheat productivity - 2022.csv
     A csv file that summarises the yields from different farms and varieties from the SRP1172.pdf file.

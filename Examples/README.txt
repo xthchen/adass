@@ -20,6 +20,11 @@ It contains four subfolders containing the following files:
     The R script that can be used to reproduce the results of "Table 1.png". The "Table 1.png" is a screenshot taken from a table produced using LaTeX using the results from the R file with preference on having varieties that are best in most methods on top.
 
 ./Evolve & Resequence/:
+    True_hap.rds
+    Original haplotype data from  Barghi, N. et al., (2019). Genetic redundancy fuels polygenic adaptation in drosophila. PLOS Biology, 17(2):1–31.
+    
+    hitchhike.R
+    The R script that can be used to reproduce Figures "Figure7_1", "Figure7_2", "Figure7_3".
 
 ./Figures/:
     This folder contains all Figures and table generated using the script from the previous folders.
